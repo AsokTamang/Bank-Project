@@ -150,3 +150,30 @@ df_cp['outstanding_debt'] = df_cp['outstanding_debt'].clip(upper=df_cp['credit_l
 #merging the credit profile data and personal info data using pandas merge function on dataframe
 df_merge=df_cp.merge(df_customers,on="cust_id",how="inner")
 print(df_merge)
+
+
+#finding the correlation between the numerical columns
+numerical_columns=['credit_limit','credit_score','credit_utilisation','age','annual_income']
+correlation_matrix = df_merge[numerical_columns].corr()
+plt.figure(figsize=(10, 6))
+
+sns.heatmap(
+    correlation_matrix,
+    annot=True,
+    fmt=".2f",
+    cmap="coolwarm",
+    linewidths=0.5,
+    linecolor="white",
+    square=True,
+    cbar_kws={"shrink": 0.8}
+)
+
+plt.title("Correlation Matrix", fontsize=14, fontweight="bold")
+plt.xticks(rotation=45, ha="right")
+plt.yticks(rotation=0)
+plt.tight_layout()
+plt.show()
+
+
+
+
