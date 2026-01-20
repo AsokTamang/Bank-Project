@@ -180,4 +180,9 @@ df_transactions.describe()
 df_transactions.isnull().sum()
 print(df_transactions[df_transactions['platform'].isnull()])
 
+#determining the frequently used platform
+platform_based_products = df_transactions.groupby('product_category')['platform'].agg(lambda x:x.mode().iloc[0])
+print(platform_based_products)
+
+
 
