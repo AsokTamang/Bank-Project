@@ -114,3 +114,14 @@ print(df_cp[df_cp.duplicated(subset=['cust_id'], keep=False)])  #checking the du
 print(df_cp.isnull().sum())  #counting the number of rows having the null value
 #as from the above code , we found out that the credit limit is null in the file
 print(df_cp[df_cp.credit_limit.isnull()])  #here we are retrieving the data from cp where the credit limit is null
+
+#Scatter plot of credit limit based on credit score
+plt.figure(figsize=(20,8))  #here we are choosing the longer length so that the xlabel can be fitted appropriately
+plt.scatter(df_cp.credit_limit,df_cp.credit_score)
+plt.xlabel('Credit Limit')
+plt.ylabel('Credit Score')
+plt.title('Credit Limit Based on Credit Score')
+plt.grid(True)
+plt.xticks(range(0,90000,5000))
+plt.legend()
+plt.show()
