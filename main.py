@@ -17,3 +17,15 @@ q1a,q2a,q3a = df_customers.age.quantile([0.25,0.50,0.75])
 
 #checking the null values
 print(df_customers.isnull().sum()) #this helps us to check the null values in each column
+print(df_customers.annual_income)
+print(df_customers[df_customers.annual_income.isnull()])
+print(df_customers[df_customers.annual_income.isnull()].shape)  #total number of rows or total number of datas having null annual income
+
+
+print(df_customers.isnull().sum()) #this helps us to check the null values in each column
+print(df_customers.annual_income)
+print(df_customers[df_customers.annual_income.isnull()])
+
+#grouping by occupation and based on the occupation finding the annual income
+occupations_median=df_customers.groupby('occupation').annual_income.median()
+print(occupations_median)  #here we are calculating the median of annual income of each and every occupations
