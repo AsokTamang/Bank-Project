@@ -63,11 +63,21 @@ df_customers.age.isnull().sum() #checking the null values in the age column
 (df_customers.age<15).sum()  #calculating the number of rows having age less than 15
 (df_customers.age>80).sum()  #calculating the total number of rows having age more than 80
 df_customers.age.describe()
-median_age = df_customers.age.median()
-print(median_age)
-df_customers['age'] = df_customers['age'].apply(lambda x:median_age if x<15 or x>80 else x)   #applying this method on age column directly
+occupation_median_age = df_customers.groupby('occupation').age.median()
+df_customers['age'] = df_customers.apply(lambda row:occupation_median_age[row['occupation']] if row['age']<15 or row['age']>80 else row['age'],axis=1)   #applying this method on age column directly
 print(df_customers.age.describe())
 print((df_customers.age<15).sum())
+sns.histplot(df_customers['age'])  #plot after removing the outliers
+plt.show()
 
+#CREATING A NEW COLUMN CALLED AGE-GROUP
+bins = [17,25,48,65]   #here bins act as the fences between the age datas
+labels = ['18-25','26-48','49-65']
+
+df_customers['age_group']=pd.cut(
+    df_customers['age'],
+    bins=bins,
+    labels=labels
+)
 
 
