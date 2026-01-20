@@ -80,4 +80,7 @@ df_customers['age_group']=pd.cut(
     labels=labels
 )
 
-
+data_age_group = df_customers['age_group'].value_counts(normalize=True).sort_index() * 100 #sorting the age_group and converting it into percentage
+print(data_age_group)
+plt.pie(data_age_group,labels = labels,autopct='%1.1f%%',shadow=True,explode=(0,0.1,0))
+plt.show()
