@@ -132,6 +132,7 @@ bins=[299,450,500,550,600,650,700,750,800]
 labels = ['300-450','451-500','501-550','551-600','601-650','651-700','701-750','751-800']
 df_cp['credit_score_range'] = pd.cut(df_cp['credit_score'],bins=bins,labels=labels)
 print(df_cp)
+#for each range of credit_score we are assigning the highest frequently occuring credit limit
 credit_score_limit= df_cp.groupby('credit_score_range')['credit_limit'].agg(lambda x:x.mode().iloc[0])  #here for each group or credit_score range we are assigning the mode value.
 #and .iloc is for choosing the first value when two values are returned as a mode
 print(credit_score_limit)
@@ -139,3 +140,6 @@ df_cp.isnull().sum()
 # Filling NaN values in a vectorized way
 df_cp['credit_limit'] = df_cp['credit_limit'].fillna(df_cp['credit_score_range'].map(credit_score_limit).astype(int))  #here as the mode value returns the float we are converting it into integer then only we are filling the null credit limit with the appropriate limit based on the credit_score range
 df_cp.isnull().sum()
+
+#cleaning the data of outstanding_debt column using clip method
+(df_cp['outstanding_debt']>df_cp['credit_limit']).sum()
