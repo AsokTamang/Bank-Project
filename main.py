@@ -147,4 +147,6 @@ df_cp['outstanding_debt'] = df_cp['outstanding_debt'].clip(upper=df_cp['credit_l
 
 
 
-
+#merging the credit profile data and personal info data using pandas merge function on dataframe
+df_merge=df_cp.merge(df_customers,on="cust_id",how="inner")
+print(df_merge)
