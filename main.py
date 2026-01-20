@@ -106,3 +106,7 @@ df_creditprofiles.isnull().sum()
 print(df_creditprofiles.shape)
 print(df_customers.shape)
 print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #here we are finding if the duplicate datas exist in df_creditprofiles
+
+
+df_cp = df_creditprofiles.drop_duplicates(subset=['cust_id'], keep='last')  #as our last row has the valid data in each duplicate groups so we are dropping the first row instead
+print(df_cp[df_cp.duplicated(subset=['cust_id'], keep=False)])  #checking the duplicates again
