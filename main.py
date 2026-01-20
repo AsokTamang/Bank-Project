@@ -65,6 +65,9 @@ df_customers.age.isnull().sum() #checking the null values in the age column
 df_customers.age.describe()
 median_age = df_customers.age.median()
 print(median_age)
+df_customers['age'] = df_customers['age'].apply(lambda x:median_age if x<15 or x>80 else x)   #applying this method on age column directly
+print(df_customers.age.describe())
+print((df_customers.age<15).sum())
 
 
 
