@@ -143,3 +143,8 @@ df_cp.isnull().sum()
 
 #cleaning the data of outstanding_debt column using clip method
 (df_cp['outstanding_debt']>df_cp['credit_limit']).sum()
+df_cp['outstanding_debt'] = df_cp['outstanding_debt'].clip(upper=df_cp['credit_limit'])  #clipping the outstanding debt to credit_limit as the ceiling to prevent the outstanding debt to go beyound the credit limit
+
+
+
+
