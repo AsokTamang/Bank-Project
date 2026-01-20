@@ -184,5 +184,10 @@ print(df_transactions[df_transactions['platform'].isnull()])
 platform_based_products = df_transactions.groupby('product_category')['platform'].agg(lambda x:x.mode().iloc[0])
 print(platform_based_products)
 
+#visual representation of frequently used platform
+plt.figure(figsize=(20,8))
+sns.countplot(x="product_category",hue="platform",data=df_transactions)
+plt.show()
+
 
 
