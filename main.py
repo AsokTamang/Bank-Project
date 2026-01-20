@@ -175,5 +175,9 @@ plt.tight_layout()
 plt.show()
 
 
+#CLEANING THE DATA OF TRANSACTIONS DATAFRAME
+df_transactions.describe()
+df_transactions.isnull().sum()
+print(df_transactions[df_transactions['platform'].isnull()])
 
 
