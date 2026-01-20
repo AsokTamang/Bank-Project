@@ -83,4 +83,19 @@ df_customers['age_group']=pd.cut(
 data_age_group = df_customers['age_group'].value_counts(normalize=True).sort_index() * 100 #sorting the age_group and converting it into percentage
 print(data_age_group)
 plt.pie(data_age_group,labels = labels,autopct='%1.1f%%',shadow=True,explode=(0,0.1,0))
+plt.title("Customer distribution based on age_group")
+plt.show()
+
+
+#CUSTOMER DISTRIBUTION BASED ON LOCATION AND GENDER
+customers_location=df_customers['location'].value_counts()
+print(customers_location)
+#here we are using unstack inorder to convert the gender's (MALE,FEMALE) rows into column inorder for plotting
+location_based_gender = df_customers.groupby('location')['gender'].value_counts().unstack()
+print(location_based_gender)
+
+location_based_gender.plot(kind='bar',stacked=True,figsize=(8,6))  #stacking the bars of male and female
+plt.title("Customer Distribution based on location and gender")
+plt.xlabel("City")
+plt.ylabel("Count")
 plt.show()
