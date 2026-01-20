@@ -12,5 +12,8 @@ df_transactions.platform.unique()
 
 
 #checking all the numeric datas
-df_customers.describe()
+print(df_customers.describe())
 q1a,q2a,q3a = df_customers.age.quantile([0.25,0.50,0.75])
+
+#checking the null values
+print(df_customers.isnull().sum()) #this helps us to check the null values in each column
