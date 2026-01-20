@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 df_customers = pd.read_csv("C:/Users/ashok/Downloads/chapter8_assets/chapter8_assets/dataset/customers.csv")
 df_creditprofiles = pd.read_csv("C:/Users/ashok/Downloads/chapter8_assets/chapter8_assets/dataset/credit_profiles.csv")
@@ -31,7 +34,11 @@ occupations_median=df_customers.groupby('occupation').annual_income.median()
 print(occupations_median)  #here we are calculating the median of annual income of each and every occupations
 
 #filling the null values of a column annual income with the median of annual income based on the type of occupation.
-df_customers['annual_income'] = df_customers.apply(lambda row :occupations_median[row['occupation']] if pd.isna(row['annual_income']) else row['annual_income'])
+df_customers['annual_income'] = df_customers.apply(lambda row :occupations_median[row['occupation']] if pd.isna(row['annual_income']) else row['annual_income'],axis=1) #here axis=1 means we are using this apply method on each rows
 
-
+#data visualization
+plt.figure(figsize=(10,7))
+sns.histplot(df_customers['annual_income'],kde=True,label='data')
+plt.legend()
+plt.show()  #right skewed histogram of annual_income data
 
