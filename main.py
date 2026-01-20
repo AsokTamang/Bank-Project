@@ -181,13 +181,14 @@ df_transactions.isnull().sum()
 print(df_transactions[df_transactions['platform'].isnull()])
 
 #determining the frequently used platform
-platform_based_products = df_transactions.groupby('product_category')['platform'].agg(lambda x:x.mode().iloc[0])
-print(platform_based_products)
+products_based_platform = df_transactions.groupby('product_category')['platform'].agg(lambda x:x.mode().iloc[0])
+print(products_based_platform)
 
 #visual representation of frequently used platform
 plt.figure(figsize=(20,8))
 sns.countplot(x="product_category",hue="platform",data=df_transactions)
 plt.show()
 
-
+#filling the null values in the column platform using products_based_platform
+df_transactions['platform'] = df_transactions['platform'].fillna(df_transactions['product_category'].map(products_based_platform))
 
