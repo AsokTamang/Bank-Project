@@ -99,3 +99,10 @@ plt.title("Customer Distribution based on location and gender")
 plt.xlabel("City")
 plt.ylabel("Count")
 plt.show()
+
+
+#CREDIT PROFILES DATA
+df_creditprofiles.isnull().sum()
+print(df_creditprofiles.shape)
+print(df_customers.shape)
+print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #here we are finding if the duplicate datas exist in df_creditprofiles
