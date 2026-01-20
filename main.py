@@ -9,3 +9,8 @@ df_customers.head(5)
 df_customers.occupation.unique()
 df_transactions.head(5)
 df_transactions.platform.unique()
+
+
+#checking all the numeric datas
+df_customers.describe()
+q1a,q2a,q3a = df_customers.age.quantile([0.25,0.50,0.75])
