@@ -110,3 +110,7 @@ print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #
 
 df_cp = df_creditprofiles.drop_duplicates(subset=['cust_id'], keep='last')  #as our last row has the valid data in each duplicate groups so we are dropping the first row instead
 print(df_cp[df_cp.duplicated(subset=['cust_id'], keep=False)])  #checking the duplicates again
+
+print(df_cp.isnull().sum())  #counting the number of rows having the null value
+#as from the above code , we found out that the credit limit is null in the file
+print(df_cp[df_cp.credit_limit.isnull()])  #here we are retrieving the data from cp where the credit limit is null
