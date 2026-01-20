@@ -29,3 +29,9 @@ print(df_customers[df_customers.annual_income.isnull()])
 #grouping by occupation and based on the occupation finding the annual income
 occupations_median=df_customers.groupby('occupation').annual_income.median()
 print(occupations_median)  #here we are calculating the median of annual income of each and every occupations
+
+#filling the null values of a column annual income with the median of annual income based on the type of occupation.
+df_customers['annual_income'] = df_customers.apply(lambda row :occupations_median[row['occupation']] if pd.isna(row['annual_income']) else row['annual_income'])
+
+
+
