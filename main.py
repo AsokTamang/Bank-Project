@@ -105,7 +105,7 @@ plt.show()
 df_creditprofiles.isnull().sum()
 print(df_creditprofiles.shape)
 print(df_customers.shape)
-print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #here we are finding if the duplicate datas exist in df_creditprofiles
+print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #here we are finding if the duplicate datas exist in df_creditprofiles, keep = False means we are making the data duplicate from the very first catch
 
 
 df_cp = df_creditprofiles.drop_duplicates(subset=['cust_id'], keep='last')  #as our last row has the valid data in each duplicate groups so we are dropping the first row instead
@@ -192,3 +192,10 @@ plt.show()
 #filling the null values in the column platform using products_based_platform
 df_transactions['platform'] = df_transactions['platform'].fillna(df_transactions['product_category'].map(products_based_platform))
 
+
+#checking the outliers in transaction dataframe
+print(df_transactions.describe())
+df_zero_transaction = df_transactions[df_transactions.tran_amount==0]
+print(df_zero_transaction.platform)
+print(df_zero_transaction.product_category)
+print(df_zero_transaction.payment_type)
