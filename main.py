@@ -195,7 +195,13 @@ df_transactions['platform'] = df_transactions['platform'].fillna(df_transactions
 
 #checking the outliers in transaction dataframe
 print(df_transactions.describe())
-df_zero_transaction = df_transactions[df_transactions.tran_amount==0]
+df_zero_transaction = df_transactions[df_transactions.tran_amount==0]  #as the transaction amount cannot be 0, we must clean this tran_amount column
 print(df_zero_transaction.platform)
 print(df_zero_transaction.product_category)
 print(df_zero_transaction.payment_type)
+
+df_new_transactions= df_transactions[(df_transactions['platform'] =="Amazon") & (df_transactions['product_category'] =="Electronics") & (df_transactions['payment_type'] =="Credit Card")]
+replacing_tran_amount= df_new_transactions[df_new_transactions.tran_amount>0]['tran_amount'].median()  #as for the category, platform and payment type of the row having tran_amount 0 is same,
+#we are using the median of tran amount of the row where the tran amount is greater than 0, and having that matched category, platform and payment type inorder to replace the 0 tran amount column data
+
+print(df_transactions[df_transactions.tran_amount==0].shape)
