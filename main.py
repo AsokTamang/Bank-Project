@@ -236,9 +236,17 @@ plt.show()
 df_merged = df_transactions.merge(df_customers,on="cust_id",how="inner")
 print(df_merged)
 
-#visual representation of percentage use of payment type across age-groups using countplot
-plt.title('Distribution of percentage of payment type across age-groups')
-plt.xlabel('age-group')
-plt.ylabel('payment type usage in percentage')
-sns.countplot(data=df_merged,x='age_group',hue='payment_type',stat="percent")
+#visual representation of percentage use of payment type across age-groups using countplot and product category count across each group
+fig,(ax1,ax2) = plt.subplots(1,2,figsize=(12,5))  #here we are subplotting in 1 row and 2 columns
+sns.countplot(data=df_merged,x='age_group',hue='payment_type',stat="percent",ax=ax1)
+ax1.set_title('Payment type Count across age-groups')
+ax1.set_xlabel('age-group')
+ax1.set_ylabel('payment type usage in percentage')
+
+sns.countplot(data=df_merged,x='age_group',hue='product_category',stat="percent",ax=ax2)
+ax2.set_title('Product Category Count across age-groups')
+ax2.set_xlabel('age-group')
+ax2.set_ylabel('product category usage in percentage')
+
+
 plt.show()
