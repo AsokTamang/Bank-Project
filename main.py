@@ -1,74 +1,11 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+from matplotlib import pyplot as plt
 
 df_customers = pd.read_csv("C:/Users/ashok/Downloads/chapter8_assets/chapter8_assets/dataset/customers.csv")
 df_creditprofiles = pd.read_csv("C:/Users/ashok/Downloads/chapter8_assets/chapter8_assets/dataset/credit_profiles.csv")
 df_transactions = pd.read_csv("C:/Users/ashok/Downloads/chapter8_assets/chapter8_assets/dataset/transactions.csv")
-print(df_customers)
-print(df_customers.shape)
-df_customers.head(5)
-df_customers.occupation.unique()
-df_transactions.head(5)
-df_transactions.platform.unique()
 
 
-#checking all the numeric datas
-print(df_customers.describe())
-#q1a,q2a,q3a = df_customers.age.quantile([0.25,0.50,0.75])
-
-#checking the null values
-print(df_customers.isnull().sum()) #this helps us to check the null values in each column
-print(df_customers.annual_income)
-print(df_customers[df_customers.annual_income.isnull()])
-print(df_customers[df_customers.annual_income.isnull()].shape)  #total number of rows or total number of datas having null annual income
-
-
-print(df_customers.isnull().sum()) #this helps us to check the null values in each column
-print(df_customers.annual_income)
-print(df_customers[df_customers.annual_income.isnull()])
-
-#grouping by occupation and based on the occupation finding the annual income
-occupations_median=df_customers.groupby('occupation').annual_income.median()
-print(occupations_median)  #here we are calculating the median of annual income of each and every occupations
-
-#cleaning the datas
-
-
-#1-filling the null values of a column annual income with the median of annual income based on the type of occupation.
-df_customers['annual_income'] = df_customers.apply(lambda row :occupations_median[row['occupation']] if pd.isna(row['annual_income']) else row['annual_income'],axis=1) #here axis=1 means we are using this apply method on each rows
-
-
-#ANNUAL INCOME COLUMN
-#data visualization
-plt.figure(figsize=(10,7))
-sns.histplot(df_customers['annual_income'],kde=True,label='data')
-plt.legend()
-plt.show()  #right skewed histogram of annual_income data
-
-#2-filling the outliers value with the appropriate median value
-print(df_customers.annual_income.describe())
-#as we can see the minimum value of annual_income is 2, which is surely a bug data
-#so to clean this , we have assumed 5000 as the annual income of a person
-for index,row in df_customers.iterrows():
-    if row.annual_income<5000:  #if the annual income in the current row is less than 5000 then we are filling this value with the median
-        df_customers.at[index,'annual_income']=occupations_median[row.occupation]
-#checking the value
-print(df_customers.iloc[[31]])
-
-
-#AGE COLUMN
-df_customers.age.isnull().sum() #checking the null values in the age column
-(df_customers.age<15).sum()  #calculating the number of rows having age less than 15
-(df_customers.age>80).sum()  #calculating the total number of rows having age more than 80
-df_customers.age.describe()
-occupation_median_age = df_customers.groupby('occupation').age.median()
-df_customers['age'] = df_customers.apply(lambda row:occupation_median_age[row['occupation']] if row['age']<15 or row['age']>80 else row['age'],axis=1)   #applying this method on age column directly
-print(df_customers.age.describe())
-print((df_customers.age<15).sum())
-sns.histplot(df_customers['age'])  #plot after removing the outliers
-plt.show()
 
 #CREATING A NEW COLUMN CALLED AGE-GROUP
 bins = [17,25,48,65]   #here bins act as the fences between the age datas
@@ -87,188 +24,21 @@ plt.title("Customer distribution based on age_group")
 plt.show()
 
 
-#CUSTOMER DISTRIBUTION BASED ON LOCATION AND GENDER
-customers_location=df_customers['location'].value_counts()
-print(customers_location)
-#here we are using unstack inorder to convert the gender's (MALE,FEMALE) rows into column inorder for plotting
-location_based_gender = df_customers.groupby('location')['gender'].value_counts().unstack()
-print(location_based_gender)
-
-location_based_gender.plot(kind='bar',stacked=True,figsize=(8,6))  #stacking the bars of male and female
-plt.title("Customer Distribution based on location and gender")
-plt.xlabel("City")
-plt.ylabel("Count")
-plt.show()
-
-
-#CREDIT PROFILES DATA
-df_creditprofiles.isnull().sum()
-print(df_creditprofiles.shape)
-print(df_customers.shape)
-print(df_creditprofiles[df_creditprofiles['cust_id'].duplicated(keep=False)])  #here we are finding if the duplicate datas exist in df_creditprofiles, keep = False means we are making the data duplicate from the very first catch
-
-
-df_cp = df_creditprofiles.drop_duplicates(subset=['cust_id'], keep='last')  #as our last row has the valid data in each duplicate groups so we are dropping the first row instead
-print(df_cp[df_cp.duplicated(subset=['cust_id'], keep=False)])  #checking the duplicates again
-
-print(df_cp.isnull().sum())  #counting the number of rows having the null value
-#as from the above code , we found out that the credit limit is null in the file
-print(df_cp[df_cp.credit_limit.isnull()])  #here we are retrieving the data from cp where the credit limit is null
-
-#Scatter plot of credit limit based on credit score
-plt.figure(figsize=(20,8))  #here we are choosing the longer length so that the xlabel can be fitted appropriately
-plt.scatter(df_cp.credit_limit,df_cp.credit_score)
-plt.xlabel('Credit Limit')
-plt.ylabel('Credit Score')
-plt.title('Credit Limit Based on Credit Score')
-plt.grid(True)
-plt.xticks(range(0,90000,5000))
-plt.legend()
-plt.show()
-
-
-#finding the null values in credit limit and filling them with the appropriate limit based on the credit_score range
-bins=[299,450,500,550,600,650,700,750,800]
-labels = ['300-450','451-500','501-550','551-600','601-650','651-700','701-750','751-800']
-df_cp['credit_score_range'] = pd.cut(df_cp['credit_score'],bins=bins,labels=labels)
-print(df_cp)
-#for each range of credit_score we are assigning the highest frequently occuring credit limit
-credit_score_limit= df_cp.groupby('credit_score_range')['credit_limit'].agg(lambda x:x.mode().iloc[0])  #here for each group or credit_score range we are assigning the mode value.
-#and .iloc is for choosing the first value when two values are returned as a mode
-print(credit_score_limit)
-df_cp.isnull().sum()
-# Filling NaN values in a vectorized way
-df_cp['credit_limit'] = df_cp['credit_limit'].fillna(df_cp['credit_score_range'].map(credit_score_limit).astype(int))  #here as the mode value returns the float we are converting it into integer then only we are filling the null credit limit with the appropriate limit based on the credit_score range
-df_cp.isnull().sum()
-
-#cleaning the data of outstanding_debt column using clip method
-(df_cp['outstanding_debt']>df_cp['credit_limit']).sum()
-df_cp['outstanding_debt'] = df_cp['outstanding_debt'].clip(upper=df_cp['credit_limit'])  #clipping the outstanding debt to credit_limit as the ceiling to prevent the outstanding debt to go beyound the credit limit
-
-
-
-#merging the credit profile data and personal info data using pandas merge function on dataframe
-df_merge=df_cp.merge(df_customers,on="cust_id",how="inner")
-print(df_merge)
-
-
-#finding the correlation between the numerical columns
-numerical_columns=['credit_limit','credit_score','credit_utilisation','age','annual_income']
-correlation_matrix = df_merge[numerical_columns].corr()
-plt.figure(figsize=(10, 6))
-
-sns.heatmap(
-    correlation_matrix,
-    annot=True,
-    fmt=".2f",
-    cmap="coolwarm",
-    linewidths=0.5,
-    linecolor="white",
-    square=True,
-    cbar_kws={"shrink": 0.8}
-)
-
-plt.title("Correlation Matrix", fontsize=14, fontweight="bold")
-plt.xticks(rotation=45, ha="right")
-plt.yticks(rotation=0)
-plt.tight_layout()
-plt.show()
-
-
-#CLEANING THE DATA OF TRANSACTIONS DATAFRAME
-df_transactions.describe()
-df_transactions.isnull().sum()
-print(df_transactions[df_transactions['platform'].isnull()])
-
-#determining the frequently used platform
-products_based_platform = df_transactions.groupby('product_category')['platform'].agg(lambda x:x.mode().iloc[0])
-print(products_based_platform)
-
-#visual representation of frequently used platform
-plt.figure(figsize=(20,8))
-sns.countplot(x="product_category",hue="platform",data=df_transactions)
-plt.show()
-
-#filling the null values in the column platform using products_based_platform
-df_transactions['platform'] = df_transactions['platform'].fillna(df_transactions['product_category'].map(products_based_platform))
-
-
-#checking the outliers in transaction dataframe
-print(df_transactions.describe())
-df_zero_transaction = df_transactions[df_transactions.tran_amount==0]  #as the transaction amount cannot be 0, we must clean this tran_amount column
-print(df_zero_transaction.platform)
-print(df_zero_transaction.product_category)
-print(df_zero_transaction.payment_type)
-
-#finding the required replacement median value
-df_new_transactions= df_transactions[(df_transactions['platform'] =="Amazon") & (df_transactions['product_category'] =="Electronics") & (df_transactions['payment_type'] =="Credit Card")]
-replacing_tran_amount= df_new_transactions[df_new_transactions.tran_amount>0]['tran_amount'].median()  #as for the category, platform and payment type of the row having tran_amount 0 is same,
-#we are using the median of tran amount of the row where the tran amount is greater than 0, and having that matched category, platform and payment type inorder to replace the 0 tran amount column data
-
-print(df_transactions[df_transactions.tran_amount==0].shape)  #number of rows having transaction amount equal to 0
-df_transactions.loc[df_transactions.tran_amount==0,'tran_amount'] = replacing_tran_amount  #here we are selecting the rows and columns as df_transactions.tran_amount==0,'tran_amount'  replacing it with replacing_tran_amount
-
-print(df_transactions[df_transactions.tran_amount==0].shape)  #number of rows having transaction amount equal to 0 after cleaning the data, and the output is 0
-
-#visual representaion to check the outliers
-sns.histplot(df_transactions[df_transactions.tran_amount<10000].tran_amount,bins=30)
-plt.show()
-
-#as from the figure we can see that the distribution is right-skewed
-#so the best way to remove the outliers is using the quantile
-q1,q3 = df_transactions.tran_amount.quantile([0.25,0.75])
-iqr = q3-q1
-print(iqr)
-lower_limit = q1 - (2 * iqr)
-upper_limit = q3 + (2 * iqr)
-outliers =df_transactions[(df_transactions.tran_amount<lower_limit)|(df_transactions.tran_amount>upper_limit)]
-#the below code gives us the median of tran amount for each category
-tran_median_per_category= df_transactions[(df_transactions.tran_amount>lower_limit) & (df_transactions.tran_amount<upper_limit)].groupby('product_category')['tran_amount'].median()
-mask = df_transactions.tran_amount>upper_limit  #as the outliers below the lower limit has been taken care of
-df_transactions.loc[mask,'tran_amount'] = df_transactions.loc[mask,'product_category'].map(tran_median_per_category)
-
-#visual representation of percentage use of payment type using countplot, where phonepe is dominant and cash is least used for transaction
-sns.countplot(x=df_transactions.payment_type,stat='percent')
-plt.show()
-
-
 
 df_merged = df_transactions.merge(df_customers,on="cust_id",how="inner")
-print(df_merged)
-
-#visual representation of percentage use of payment type across age-groups using countplot and product category count across each group
-fig,(ax1,ax2) = plt.subplots(1,2,figsize=(12,5))  #here we are subplotting in 1 row and 2 columns
-sns.countplot(data=df_merged,x='age_group',hue='payment_type',stat="percent",ax=ax1)
-ax1.set_title('Payment type Count across age-groups')
-ax1.set_xlabel('age-group')
-ax1.set_ylabel('payment type usage in percentage')
-
-sns.countplot(data=df_merged,x='age_group',hue='product_category',stat="percent",ax=ax2) #so the hue is used for splitting or dividing the data with in the data, same as grouping by multiple columns
-ax2.set_title('Product Category Count across age-groups')
-ax2.set_xlabel('age-group')
-ax2.set_ylabel('product category usage in percentage')
-
-
-plt.show()
+print(df_customers)
+print(df_customers.shape)
+df_customers.head(5)
+df_customers.occupation.unique()
+df_transactions.head(5)
+df_transactions.platform.unique()
 
 
 
-#visual representation of average transaction amount across multiple categories
-col_types = ['platform','product_category','payment_type','marital_status','age_group']
-fig,axes = plt.subplots(3,2,figsize=(10,12))  #here we are subplotting in 1 row and 2 columns
-axes = axes.flatten()  #it helps us to use the ax by index wise
-for i,col in enumerate(col_types):
-    avg_transaction = df_merged.groupby(col)['tran_amount'].mean().reset_index()
-    sorted_avg_transaction = avg_transaction.sort_values(by='tran_amount',ascending=False)   #we sort the values inorder for the bar chart to look better
-    sns.barplot(x=col,y='tran_amount',data=sorted_avg_transaction,ax=axes[i])
-    axes[i].set_title(f'Average transaction amount in {col}')
-    axes[i].set_xlabel(col)
-    axes[i].set_ylabel('Transaction amount')
-    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45, ha='right')
 
-for i in range(len(col_types),len(axes)):
-    fig.delaxes(axes[i])  #removing the unused ax
-plt.tight_layout()
-plt.show()
+
+
+
+
 
 
