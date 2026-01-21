@@ -243,10 +243,32 @@ ax1.set_title('Payment type Count across age-groups')
 ax1.set_xlabel('age-group')
 ax1.set_ylabel('payment type usage in percentage')
 
-sns.countplot(data=df_merged,x='age_group',hue='product_category',stat="percent",ax=ax2)
+sns.countplot(data=df_merged,x='age_group',hue='product_category',stat="percent",ax=ax2) #so the hue is used for splitting or dividing the data with in the data, same as grouping by multiple columns
 ax2.set_title('Product Category Count across age-groups')
 ax2.set_xlabel('age-group')
 ax2.set_ylabel('product category usage in percentage')
 
 
 plt.show()
+
+
+
+#visual representation of average transaction amount across multiple categories
+col_types = ['platform','product_category','payment_type','marital_status','age_group']
+fig,axes = plt.subplots(3,2,figsize=(10,12))  #here we are subplotting in 1 row and 2 columns
+axes = axes.flatten()  #it helps us to use the ax by index wise
+for i,col in enumerate(col_types):
+    avg_transaction = df_merged.groupby(col)['tran_amount'].mean().reset_index()
+    sorted_avg_transaction = avg_transaction.sort_values(by='tran_amount',ascending=False)   #we sort the values inorder for the bar chart to look better
+    sns.barplot(x=col,y='tran_amount',data=sorted_avg_transaction,ax=axes[i])
+    axes[i].set_title(f'Average transaction amount in {col}')
+    axes[i].set_xlabel(col)
+    axes[i].set_ylabel('Transaction amount')
+    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45, ha='right')
+
+for i in range(len(col_types),len(axes)):
+    fig.delaxes(axes[i])  #removing the unused ax
+plt.tight_layout()
+plt.show()
+
+
