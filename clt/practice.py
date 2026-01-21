@@ -13,3 +13,11 @@ df[df['City'] == 'Agra']['Bill'].mean()
 #distribution of sample
 sns.histplot(df[df['City'] == 'Agra'].Bill,kde=True)
 plt.show()
+
+
+sample_mean = df.groupby('City')['Bill'].mean()
+print(sample_mean)
+
+sns.histplot(sample_mean,kde=True)  #so the distribution of all the samples or the sampling distribution is approx. normal distrubution
+#which means that the mean of this sampling distribution is nearly equal to the mean of entire population
+plt.show()
