@@ -209,3 +209,8 @@ print(df_transactions[df_transactions.tran_amount==0].shape)  #number of rows ha
 df_transactions.loc[df_transactions.tran_amount==0,'tran_amount'] = replacing_tran_amount  #here we are selecting the rows and columns as df_transactions.tran_amount==0,'tran_amount'  replacing it with replacing_tran_amount
 
 print(df_transactions[df_transactions.tran_amount==0].shape)  #number of rows having transaction amount equal to 0 after cleaning the data, and the output is 0
+
+#visual representaion to check the outliers
+sns.histplot(df_transactions[df_transactions.tran_amount<10000].tran_amount,bins=30)
+plt.show()
+
