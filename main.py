@@ -230,3 +230,15 @@ df_transactions.loc[mask,'tran_amount'] = df_transactions.loc[mask,'product_cate
 #visual representation of percentage use of payment type using countplot, where phonepe is dominant and cash is least used for transaction
 sns.countplot(x=df_transactions.payment_type,stat='percent')
 plt.show()
+
+
+
+df_merged = df_transactions.merge(df_customers,on="cust_id",how="inner")
+print(df_merged)
+
+#visual representation of percentage use of payment type across age-groups using countplot
+plt.title('Distribution of percentage of payment type across age-groups')
+plt.xlabel('age-group')
+plt.ylabel('payment type usage in percentage')
+sns.countplot(data=df_merged,x='age_group',hue='payment_type',stat="percent")
+plt.show()
