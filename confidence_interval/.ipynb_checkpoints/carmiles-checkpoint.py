@@ -7,23 +7,12 @@ plt.figure(figsize = (12,8))
 plt.plot(df.miles)
 plt.show()
 
+
 sample=df.sample(50,random_state=11)
 print(sample)
-
 
 plt.figure(figsize = (12,8))
 plt.plot(sample.miles)
 plt.show()
-
-sample_mean=sample.miles.mean()
-sample_std = sample.miles.std()
-population_std=df.miles.std()
-population_mean=df.miles.mean()
-print(population_mean)
-
-
-
-
-
 
 
