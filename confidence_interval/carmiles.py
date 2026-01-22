@@ -30,3 +30,6 @@ margin_error = z_score * (population_std/np.sqrt(n))
 print(margin_error)
 
 
+lower = sample_mean - margin_error
+upper = sample_mean + margin_error
+print(f'Confidence Interval Estimate: {lower} to {upper}')
