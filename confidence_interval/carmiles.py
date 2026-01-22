@@ -6,3 +6,6 @@ df=pd.read_csv("C:/Users/ashok/Downloads/chapter9_assets/chapter9_assets/8_Confi
 plt.figure(figsize = (12,8))
 plt.plot(df.miles)
 plt.show()
+
+sample=df.sample(50,random_state=11)
+print(sample)
