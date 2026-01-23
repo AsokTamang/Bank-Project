@@ -22,4 +22,6 @@ n=100 #as there are 100 rows so the sample size is 100
 sample_mean = df.cost_reduction_pct.mean()
 print(sample_mean)
 
+standard_error = population_std_dev / np.sqrt(n)
+print(standard_error)
 
