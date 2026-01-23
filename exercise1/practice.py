@@ -12,3 +12,7 @@ df.head(5)
 #Histogram Plot of Sales Amounts
 sns.histplot(df['sales_amount (usd)'])
 plt.show()
+
+#Computing Population Standard Deviation
+population_std = df['sales_amount (usd)'].std()
+print(population_std)
