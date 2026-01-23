@@ -12,3 +12,14 @@ from scipy.stats import norm
 
 df = pd.read_csv("C:/Users/ashok/Downloads/chapter10_exercise1/chapter10_exercise1/operational_costs_data.csv")
 df.head(5)
+
+print(df.shape)
+n=100 #as there are 100 rows so the sample size is 100
+
+
+
+#1. sample mean of cost_reduction_pct
+sample_mean = df.cost_reduction_pct.mean()
+print(sample_mean)
+
+
