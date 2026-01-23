@@ -30,7 +30,7 @@ print(sample_mean)
 #Estimating Population Mean at Various Confidence Levels
 
 #60% Confidence Level
-final_probability_60 = 0.6 + ((1-0.6) / 2)  #here as the z-scores are calculated from -inf to +z, so we must include the left tail
+final_probability_60 = 0.6 + ((1-0.6) / 2)  #here as the z-scores are calculated from -inf to +z, so we must include the left tail for the area under normal distribution to the left
 z_score_60 = norm.ppf(final_probability_60)
 print(z_score_60)
 margin_of_error_60 = z_score_60 * (population_std/np.sqrt(n))
