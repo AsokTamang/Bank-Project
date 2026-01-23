@@ -16,3 +16,28 @@ plt.show()
 #Computing Population Standard Deviation
 population_std = df['sales_amount (usd)'].std()
 print(population_std)
+
+#creating a sample data and calculating its mean
+
+n=100 #sample size
+sample_data = df.sample(n,random_state = 11)
+print(sample_data)
+sample_mean = sample_data['sales_amount (usd)'].mean()
+print(sample_mean)
+
+
+
+#Estimating Population Mean at Various Confidence Levels
+
+#60% Confidence Level
+final_probability_60 = 0.6 + ((1-0.6) / 2)  #here as the z-scores are calculated from -inf to +z, so we must include the left tail
+z_score_60 = norm.ppf(final_probability_60)
+print(z_score_60)
+margin_of_error_60 = z_score_60 * (population_std/np.sqrt(n))
+
+lower_60 = sample_mean - margin_of_error_60
+upper_60 = sample_mean + margin_of_error_60
+
+print(f"60% confidence intervals - lower: {lower_60}, upper: {upper_60}")
+
+
