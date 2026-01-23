@@ -36,3 +36,7 @@ print(z_critical)
 standard_error = population_std_dev / np.sqrt(n)
 z_calculated = (sample_mean - population_mean)/ standard_error
 print(z_calculated)
+
+
+#The null hypothesis isn't rejected as the calculated z score lies before the rejection region as z_calculated is lesser than the z_critical
+#which suggests that  these cost-saving measures have not effectively reduced operational costs beyond the company's target of 8%.
