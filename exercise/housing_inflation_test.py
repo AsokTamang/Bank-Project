@@ -22,4 +22,6 @@ print(sample_mean)
 standard_error = population_std / (np.sqrt(n))
 print(standard_error)
 
-
+#calculating the zscore
+z_score = (sample_mean - population_mean) / standard_error
+print(z_score)
