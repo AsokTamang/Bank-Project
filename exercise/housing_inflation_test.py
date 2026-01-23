@@ -32,6 +32,8 @@ confidence_level = 1 - alpha
 z_critical = norm.ppf(confidence_level)
 print(z_critical)
 
+
+
 #now we compare our calculated z_score with the z_critical
 # in the case of right tailed  which is one_tailed testing if the z_score is greater than z_critical then we reject the null hypothesis as z_score lies within the significant region
 # in the case of left tailed  which is one_tailed testing if the z_score is lesser than z_critical then we reject the null hypothesis as z_score lies within the significant region
@@ -42,3 +44,5 @@ print(z_critical)
 #in two_tailed test , the alpha or significant level is divided equally on both sides
 
 #the standard sample size for testing is either 30 or greater than 30
+
+
