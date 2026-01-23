@@ -48,3 +48,13 @@ margin_of_error_82 = z_score_80 * (population_std/np.sqrt(n))
 lower_80 = sample_mean - margin_of_error_82
 upper_80 = sample_mean + margin_of_error_82
 print(f"80% confidence intervals - lower: {lower_80}, upper: {upper_80}")
+
+
+#98% Confidence Level
+final_probability_98 = 0.98 + ((1 - 0.98) / 2)
+z_score_98 = norm.ppf(final_probability_98)
+print(z_score_98)
+margin_of_error_98 = z_score_98 * (population_std / np.sqrt(n))
+lower_98 = sample_mean - margin_of_error_98
+upper_98 = sample_mean + margin_of_error_98
+print(f"98% confidence intervals - lower: {lower_98}, upper: {upper_98}")
