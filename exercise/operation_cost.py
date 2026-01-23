@@ -25,3 +25,14 @@ print(sample_mean)
 standard_error = population_std_dev / np.sqrt(n)
 print(standard_error)
 
+
+
+#defining significance level
+#as our test is right tailed which states that the measures reduced cost beyound 8 %
+#so the total area to the left becomes
+final_probability_area =1-0.05
+z_critical = norm.ppf(final_probability_area)
+print(z_critical)
+standard_error = population_std_dev / np.sqrt(n)
+z_calculated = (sample_mean - population_mean)/ standard_error
+print(z_calculated)
