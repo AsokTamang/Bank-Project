@@ -5,3 +5,5 @@ from scipy.stats import norm
 
 df = pd.read_csv("C:/Users/ashok/Downloads/chapter10_assets/chapter10_assets/3_z_test_housing_inflation/house_price_increase.csv")
 
+population_mean = df.price_increase_pct.mean()
+print(population_mean)
