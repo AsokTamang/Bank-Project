@@ -8,3 +8,7 @@ from scipy.stats import norm
 
 df = pd.read_csv("C:/Users/ashok/Downloads/chapter9_exercise/chapter9_exercise1/retail_store_sales_data.csv")
 df.head(5)
+
+#Histogram Plot of Sales Amounts
+sns.histplot(df['sales_amount (usd)'])
+plt.show()
