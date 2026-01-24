@@ -31,5 +31,7 @@ print(z_score)
 
 #defining significance level
 area_to_left = norm.cdf(z_score)
+p_value = 1 - area_to_left  #as the tail is one right tailed we are subtracting from 1 and not multiplying by 2
 
-
+#decision_making
+#as the p_value is very small than the significant level so we reject the null hypothesis that states that the  campaign hasn't increased the average monthly sales more than 15%
