@@ -12,3 +12,8 @@ population_std_dev = 5  #(variability)
 
 df = pd.read_csv("C:/Users/ashok/Downloads/chapter10_exercise2/chapter10_exercise2/monthly_sales_data.csv")
 print(df)
+
+#so here the null hypothesis states that the campaign hasnot increased the average monthly sales more than 15%
+#and the alternate hypothesis states that the campaign has increased the average monthly sales more than 15 %
+#so the testing is right one tailed test
+
