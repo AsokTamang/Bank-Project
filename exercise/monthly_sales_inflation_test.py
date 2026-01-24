@@ -17,3 +17,19 @@ print(df)
 #and the alternate hypothesis states that the campaign has increased the average monthly sales more than 15 %
 #so the testing is right one tailed test
 
+#1. sample mean of cost_reduction_pct
+n = df.shape[0]
+print('sample size is:', n)
+sample_mean = df.sales_increase_pct.mean()
+standard_error = population_std_dev / np.sqrt(n)
+print(standard_error)
+
+#2. sample size
+
+z_score = (sample_mean - population_mean) / standard_error
+print(z_score)
+
+#defining significance level
+area_to_left = norm.cdf(z_score)
+
+
