@@ -46,3 +46,12 @@ print(z_critical)
 #the standard sample size for testing is either 30 or greater than 30
 
 
+area_to_left = norm.cdf(z_score)  #this gets us the area to the left under the curve using calculated z score
+#as our current test is one tailed
+p_value = 1 - area_to_left  #if our test was two tailed then we would multiply this current value
+print(p_value)
+
+#if the p_value is lesser than significant level or alpha then we reject the null hypothesis
+#otherwise we would accept the null hypothesis
+
+
