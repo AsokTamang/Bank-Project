@@ -9,3 +9,8 @@ control_mean = df_control.recovery_time_hrs.mean()
 control_std = df_control.recovery_time_hrs.std()
 print(control_mean)
 print(control_std)
+
+test_mean = df_test.recovery_time_hrs.mean()
+test_std = df_test.recovery_time_hrs.std()
+print(test_std)
+print(test_mean)
