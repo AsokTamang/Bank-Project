@@ -55,3 +55,19 @@ print(p_value)
 #otherwise we would accept the null hypothesis
 
 
+#if the alternate hypothesis states that the inflation of housing price is not equal to 10%, then the test becomes two tailed test,
+#then we must divide the significant level into half inorder to calculate the z_critical based on area to the left
+z_critical1 = norm.ppf(1-(alpha/2))
+print(z_critical1)
+#as the z_score is lesser than z_critical , then we cannot reject the null hypothesis
+
+#and for the case of p_value
+p_value1 =  2 *(1 - area_to_left)  #if our test was two tailed then we would multiply this current value
+print(p_value1)
+print(alpha)
+
+#since p_value1 is greater than the significant level, then the null hypothesis is accepted
+
+
+
+
