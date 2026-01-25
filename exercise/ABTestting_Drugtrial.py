@@ -27,3 +27,6 @@ z_score = (control_mean - test_mean) / np.sqrt(a+b)
 alpha = 0.05  #the standard significant level is 0.05
 z_critical = norm.ppf(1-alpha)
 print(z_critical)
+
+#as our hypothesis testing is right one-tailed test, and as our z_score is greater than z_critical ,so our z_score lies in significant or rejected region.
+#so we reject the null hypothesis.
