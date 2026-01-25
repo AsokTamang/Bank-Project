@@ -30,3 +30,8 @@ print(z_critical)
 
 #as our hypothesis testing is right one-tailed test, and as our z_score is greater than z_critical ,so our z_score lies in significant or rejected region.
 #so we reject the null hypothesis.
+
+
+p_value = 1 - norm.cdf(z_score)
+print(p_value)
+#as our p_value is lesser than our alpha or significant level , we are rejecting our null hypothesis
