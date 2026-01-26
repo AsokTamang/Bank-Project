@@ -7,7 +7,7 @@ power = 0.8  #standard value
 effect_sizes = [0.1, 0.2, 0.3, 0.4, 0.6, 1]
 # here we are calculating the various sample sizes based on various effect sizes inorder to find the appropriate sample size for our testing
 for effect_size in effect_sizes:
-    sample = sms.tt_ind_solve_power(  # here we are calculating the required sample size
+    sample = sms.tt_ind_solve_power(  # here we are calculating the required sample size for testing the usage of new credit card
         effect_size=effect_size,
         alpha=alpha,
         power=power,
@@ -16,8 +16,8 @@ for effect_size in effect_sizes:
     print(f'sample size for effect size {effect_size} is: {sample}')
 
 #after choosing the appropriate sample size, we select that size of customers to use the new credit card, then from this population,
-#we will get a certain size of population who uses this new credit card
-#so we use same number of people or same sample size as our control group size to use the old credit card, excluding the people who were given to use the new credit card
+#then we will get a certain size of population who uses this new credit card
+#so we use this same number of people or same sample size as our control group size to use the old credit card, excluding the people who were given to use the new credit card
 
 
 df = pd.read_csv("C:/Users/ashok/Downloads/chapter11_assets/chapter11_assets/data/avg_transactions_after_campaign.csv")
@@ -38,3 +38,14 @@ ax2.set_title('Distribution of average Test group transaction')
 ax2.legend()
 
 plt.show()
+
+
+n = df.shape[0]  #sample size
+print(f'The sample size is:', n)
+#and as our sample size is greater than 30 we are using z_test in our AB testing
+
+#statistics for control group
+control_mean = df.control_group_avg_tran.mean()
+control_std = df.control_group_avg_tran.std()
+print(control_mean)
+print(control_std)
