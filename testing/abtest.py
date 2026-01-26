@@ -65,3 +65,13 @@ print(z_score)
 
 z_critical = norm.ppf(1-alpha)
 print(z_critical)
+
+
+#as we can observe, the z_score is greater than the z_critical. so the z_score of sample lies in the rejection region
+#which concludes that the null hypothesis (the new credit card avg transaction is not better than that of old credit card) is rejected.
+
+p_value = 1-norm.cdf(z_score)
+print(p_value)
+#as p_value is also lesser than the significant level
+#so the null hypothesis is rejected
+#we are good to launch our new credit card
