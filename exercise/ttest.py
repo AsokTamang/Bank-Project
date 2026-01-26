@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
-from scipy.stats import norm , t
+from scipy.stats import t
+
+#null hypothesis states that the new method of teaching doesn't increase the average marks of students
+#alternate hypothesis states that the new method of teaching does increase the average marks of students
 
 population_mean = 72  #given from question
 alpha = 0.05
@@ -23,3 +26,7 @@ print(t_critical)
 
 t_calculated = (sample_mean - population_mean) / (sample_std/np.sqrt(n))
 print(t_calculated)
+
+
+#as the t_calculated is greater than the t_critical so we are rejecting the null hypothesis
+#which concludes that the new method of study does increase the average marks of students
