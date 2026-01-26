@@ -21,3 +21,11 @@ current_size = df_current.shape[0]
 print(current_mean)
 print(current_std)
 print(current_size)
+
+#test statistics
+test_mean = df_new.time_spent_minutes.mean()
+test_std = df_new.time_spent_minutes.std()
+test_size = df_new.shape[0]
+print(test_mean)
+print(test_std)
+print(test_size)
