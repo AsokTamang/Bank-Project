@@ -13,3 +13,11 @@ df_current = pd.read_csv("C:/Users/ashok/Downloads/chapter10_exercise3/chapter10
 df_new = pd.read_csv("C:/Users/ashok/Downloads/chapter10_exercise3/chapter10_exercise3/new_design.csv")
 print(df_current)
 print(df_new)
+
+#control statistics
+current_mean = df_current.time_spent_minutes.mean()
+current_std = df_current.time_spent_minutes.std()
+current_size = df_current.shape[0]
+print(current_mean)
+print(current_std)
+print(current_size)
