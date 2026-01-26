@@ -17,3 +17,9 @@ sample_mean = df.score.mean()
 sample_std = df.score.std()
 print(sample_std)
 print(sample_mean)
+
+t_critical = t.ppf(1-alpha,degree_of_freedom)
+print(t_critical)
+
+t_calculated = (sample_mean - population_mean) / (sample_std/np.sqrt(n))
+print(t_calculated)
