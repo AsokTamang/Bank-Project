@@ -12,3 +12,8 @@ print(df.shape)
 n=df.shape[0]  #sample size
 degree_of_freedom =n-1
 print(degree_of_freedom)
+
+sample_mean = df.score.mean()
+sample_std = df.score.std()
+print(sample_std)
+print(sample_mean)
