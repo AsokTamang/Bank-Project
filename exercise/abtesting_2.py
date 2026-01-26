@@ -29,3 +29,10 @@ test_size = df_new.shape[0]
 print(test_mean)
 print(test_std)
 print(test_size)
+
+
+#calculating the z_score
+a=current_std**2/current_size
+b= test_std ** 2 /test_size
+z_score = (test_mean - current_mean) / np.sqrt(a+b)
+print(z_score)
