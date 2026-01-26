@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import numpy as np
+from scipy.stats import norm
 alpha = 0.05 #standard value
 power = 0.8  #standard value
 effect_sizes = [0.1, 0.2, 0.3, 0.4, 0.6, 1]
@@ -61,3 +62,6 @@ a = (test_std ** 2 / n)
 b =   (control_std ** 2 / n)
 z_score = (test_mean - control_mean) / np.sqrt(a+b)
 print(z_score)
+
+z_critical = norm.ppf(1-alpha)
+print(z_critical)
