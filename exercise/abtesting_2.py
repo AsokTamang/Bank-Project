@@ -5,6 +5,11 @@
 #Objective:
 #To determine whether Design B results in a higher average time spent on the website compared to Design A.
 
+#null hypothesis states that the  Design B won't lead to a higher average time spent on the website by users.
+#so the alternate hypothesis states that the  Design B will lead to a higher average time spent on the website by users.
+
+
+
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
@@ -42,3 +47,8 @@ alpha = 0.05
 z_critical = norm.ppf(1-alpha)  #as the tail is one tailed and its right tailed so we are subtracting alpha from 1 and not dividing by 2
 print(z_critical)
 
+#from the conclusion, as the z_score is larger than the z_critical, and it lies in the rejection region, so we reject the null hypothesis.
+#using p_value
+p_value = 1-norm.cdf(z_score)
+print(p_value)
+#as our p_value is also lesser than the significant level so we are rejecting null hypothesis
