@@ -23,7 +23,7 @@ plt.show()
 #FURTHER ANALYSIS ON AGE-GROUP
 df_total_merged = df_creditprofiles.merge(df_merged,on="cust_id",how="inner")
 print(df_total_merged)
-operating_data = df_total_merged.groupby('age_group')[['credit_score','credit_limit','annual_income']].mean().reset_index()
+operating_data = df_total_merged.groupby('age_group')[['credit_score','credit_limit','annual_income']].mean().reset_index()  #using reset_index() inorder to convert the numpy series into dataframe
 print(operating_data)
 
 columns = ['credit_score', 'credit_limit', 'annual_income']
@@ -34,7 +34,7 @@ for i, col in enumerate(columns):
     axes[i].set_title(f'Average {col} across age-groups')
     axes[i].set_xlabel('Age-Groups')
     axes[i].set_ylabel(col)
-for i in range(len(columns), len(axes)):
+for i in range(len(columns), len(axes)):  #removing the unused section
     fig.delaxes(axes[i])
 plt.tight_layout()
 plt.show()
