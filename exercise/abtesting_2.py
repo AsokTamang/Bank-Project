@@ -36,3 +36,9 @@ a=current_std**2/current_size
 b= test_std ** 2 /test_size
 z_score = (test_mean - current_mean) / np.sqrt(a+b)
 print(z_score)
+
+#calculating the z_critical
+alpha = 0.05
+z_critical = norm.ppf(1-alpha)  #as the tail is one tailed and its right tailed so we are subtracting alpha from 1 and not dividing by 2
+print(z_critical)
+
