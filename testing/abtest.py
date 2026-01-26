@@ -49,3 +49,9 @@ control_mean = df.control_group_avg_tran.mean()
 control_std = df.control_group_avg_tran.std()
 print(control_mean)
 print(control_std)
+
+#statistics for test group
+test_mean = df.test_group_avg_tran.mean()
+test_std = df.test_group_avg_tran.std()
+print(test_mean)
+print(test_std)
