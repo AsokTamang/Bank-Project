@@ -75,3 +75,10 @@ print(p_value)
 #as p_value is also lesser than the significant level
 #so the null hypothesis is rejected
 #we are good to launch our new credit card
+
+
+#calculating the interval where the amount of average transaction using new credit card lies
+confidence_interval = 1- alpha
+print(confidence_interval)
+average_tran_new = norm.interval(confidence_interval,loc=test_mean,scale=test_std/np.sqrt(n))
+print(average_tran_new)
