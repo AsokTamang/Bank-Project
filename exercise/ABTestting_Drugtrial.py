@@ -22,7 +22,7 @@ test_size = df_test.shape[0]  #here we are getting the size of test group
 
 a = control_std ** 2 / control_size
 b = test_std ** 2 / test_size
-z_score = (control_mean - test_mean) / np.sqrt(a+b)
+z_score = (test_mean - control_mean) / np.sqrt(a+b)
 
 alpha = 0.05  #the standard significant level is 0.05
 z_critical = norm.ppf(1-alpha)
@@ -35,3 +35,5 @@ print(z_critical)
 p_value = 1 - norm.cdf(z_score)
 print(p_value)
 #as our p_value is lesser than our alpha or significant level , we are rejecting our null hypothesis
+
+
