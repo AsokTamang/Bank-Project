@@ -2,6 +2,7 @@ import statsmodels.stats.api as sms
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 alpha = 0.05 #standard value
 power = 0.8  #standard value
 effect_sizes = [0.1, 0.2, 0.3, 0.4, 0.6, 1]
@@ -55,3 +56,8 @@ test_mean = df.test_group_avg_tran.mean()
 test_std = df.test_group_avg_tran.std()
 print(test_mean)
 print(test_std)
+
+a = (test_std ** 2 / n)
+b =   (control_std ** 2 / n)
+z_score = (test_mean - control_mean) / np.sqrt(a+b)
+print(z_score)
