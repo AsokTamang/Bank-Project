@@ -82,3 +82,5 @@ confidence_interval = 1- alpha
 print(confidence_interval)
 average_tran_new = norm.interval(confidence_interval,loc=test_mean,scale=test_std/np.sqrt(n))
 print(average_tran_new)
+
+
