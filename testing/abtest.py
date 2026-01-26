@@ -1,4 +1,7 @@
 import statsmodels.stats.api as sms
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 alpha = 0.05 #standard value
 power = 0.8  #standard value
 effect_sizes = [0.1, 0.2, 0.3, 0.4, 0.6, 1]
@@ -12,5 +15,26 @@ for effect_size in effect_sizes:
         alternative='two-sided')
     print(f'sample size for effect size {effect_size} is: {sample}')
 
+#after choosing the appropriate sample size, we select that size of customers to use the new credit card, then from this population,
+#we will get a certain size of population who uses this new credit card
+#so we use same number of people or same sample size as our control group size to use the old credit card, excluding the people who were given to use the new credit card
 
 
+df = pd.read_csv("C:/Users/ashok/Downloads/chapter11_assets/chapter11_assets/data/avg_transactions_after_campaign.csv")
+print(df)
+
+
+fig,(ax1,ax2) = plt.subplots(1,2,figsize=(10,6))
+sns.histplot(df.control_group_avg_tran,kde=True,label='Control group average transaction',ax=ax1)
+ax1.set_xlabel('Sales')
+ax1.set_ylabel('Frequency')
+ax1.set_title('Distribution of average control group transaction')
+ax1.legend()
+
+sns.histplot(df.test_group_avg_tran,kde=True,color='g',label='Test group average transaction',ax=ax2)
+ax2.set_xlabel('Sales')
+ax2.set_ylabel('Frequency')
+ax2.set_title('Distribution of average Test group transaction')
+ax2.legend()
+
+plt.show()
